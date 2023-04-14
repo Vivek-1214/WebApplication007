@@ -1,0 +1,55 @@
+﻿@model AppUser
+<html>
+    <head>
+        <title>Create View</title>
+       
+    </head>
+    <body>
+    <form asp-controller="AppUsers" asp-action="Create" method="post">
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label asp-for="Email">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstName">FirstName</label>
+                <input type="text" class="form-control" id="inputAddress" asp-for="FirstName">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName">LastName</label>
+                <input type="text" class="form-control" id="inputAddress" asp-for="LastName">
+                <span asp-validation-for="LastName"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="MobileNo">MobileNo</label>
+                <input type="text" class="form-control" asp-for="MobileNo">
+                <span asp-validation-for="MobileNo"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gender">GenderId</label>
+                <select id="inputState" class="form-control" asp-for="Gender">
+                    <option value=" ">-Select Gender-</option>
+                  @{
+                       foreach(var G in ViewBag.Gen){
+
+                            <option value="@G.Id">@G.Text</option>
+                                                     }
+                    }  
+               </select>
+                <span asp-validation-for="Gender"></span>
+        </div>
+
+  <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </body>
+</html>
+
+

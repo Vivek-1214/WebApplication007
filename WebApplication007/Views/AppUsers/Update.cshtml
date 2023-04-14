@@ -1,0 +1,56 @@
+﻿@*@model AppUser
+
+<html>
+<head>
+    <title></title>
+    <style>
+        body{
+            width: 100%;
+            background-image: url("https://media.istockphoto.com/id/844226534/photo/leaf-background.jpg?s=612x612&w=0&k=20&c=N4NPPNXFU5hPcThEbQ-wr4y64pqSKm-x5AMDZ0sPL5w=");
+            background-size: cover;
+        }
+        h1{
+            text-align: center;
+            margin: 1rem;
+        }
+          form{
+            border: 2px solid black;
+            padding: 2rem 7rem;
+            background-color: whitesmoke;
+            color: black;
+            height: 24rem;
+            width: 48rem;
+            margin-left: 11rem;
+          }
+          input{
+            margin-top: 2rem;
+            width: 24rem;
+            height: 2rem;
+          }
+          button{
+                  background-color:greenyellow;
+            width: 5rem;
+            text-align: center;
+            margin: 2rem 14rem;
+          }
+    </style>
+</head>
+<body>
+   
+    <form asp-controller="AppUsers" asp-action="Update" method="post">
+        <h1>Update Account</h1>
+        Name :
+        <input type="text" asp-for="Name" />
+        <br />
+        EmailId :
+        <input type="email" asp-for="EmailId" />
+        <br />
+        Password :
+        <input type="password" asp-for="Password" />
+        <br />
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>
+*@
