@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication007.Models;
+namespace WebApplication007.DAL;
 
 public partial class Core007Context : DbContext
 {
@@ -21,6 +21,7 @@ public partial class Core007Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDB; database=Core007; trusted_connection=true; trustservercertificate=true;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AppUser>(entity =>
@@ -35,6 +36,9 @@ public partial class Core007Context : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.LastName)
                 .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(10)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.Gender).WithMany(p => p.AppUsers)

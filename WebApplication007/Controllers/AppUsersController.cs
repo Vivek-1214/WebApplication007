@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication007.DAL;
 using WebApplication007.Models;
 namespace WebApplication007.Controllers
 {
@@ -16,27 +17,45 @@ namespace WebApplication007.Controllers
 		public IActionResult Create()
 		{
 			Core007Context db = new Core007Context();
+
 			var Genders= db.Genders.ToList ();
-			ViewBag.Gen = Genders;
+			ViewBag.GList = Genders;
 
-			AppUser AppUser = new AppUser();
+			AppUsersCreateVM AppUsersVM = new AppUsersCreateVM();
 
-			return View(AppUser);
+
+            return View(AppUsersVM);
 		}
 
 		[HttpPost]
-		public IActionResult Create(AppUser AppUser)
+		public IActionResult Create(AppUsersCreateVM AppUsersVM)
 		{
 			Core007Context db = new Core007Context();
 
-			if (ModelState.IsValid==true) { 
-            db.AppUsers.Add(AppUser);
-			db.SaveChanges();
-            }
-			var Genders = db.Genders.ToList();
-			ViewBag.Gen = Genders;
+			if (ModelState.IsValid==true) {
+				//Convert Values from AppUserVM to Users DTO  
+				AppUser AppUser = new AppUser();
 
-			return View(AppUser);
+				AppUser.Id = AppUsersVM.Id;
+				AppUser.Email = AppUsersVM.Email;
+				AppUser.Password = AppUsersVM.Password;
+				AppUser.FirstName = AppUsersVM.FirstName;
+				AppUser.LastName = AppUsersVM.LastName;
+				AppUser.MobileNo = AppUsersVM.MobileNo;
+				AppUser.GenderId = AppUsersVM.GenderId;
+
+
+
+				db.AppUsers.Add(AppUser);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+			var Genders = db.Genders.ToList();
+			ViewBag.GList = Genders;
+
+			return View(AppUsersVM);
 		}
 		public IActionResult Delete(int Id)
 		{
@@ -50,15 +69,13 @@ namespace WebApplication007.Controllers
 			return RedirectToAction("Index");
 		}
 
-
 		[HttpGet]
 		public IActionResult Update(int id)
 		{
 			Core007Context db = new Core007Context();
 			var AppUser = db.AppUsers.Find(id);
 
-
-			return View(AppUser);
+               return View(AppUser);
 		}
 
 		[HttpPost]
@@ -72,5 +89,20 @@ namespace WebApplication007.Controllers
 			return RedirectToAction("Index");
 		}
 
-	}
+		public IActionResult IsEmailValid(String Email)
+		{
+            Core007Context db = new Core007Context();
+			var EmailId=db.AppUsers.Any(u => u.Email== Email);
+			if (EmailId==true)
+			{
+				return Json("this emailId is already used,enter another email..");
+			}
+			else
+			{
+                return Json(true);
+            }
+           
+		}
+
+    }
 }

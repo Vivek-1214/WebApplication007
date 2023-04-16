@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApplication007.Models;
+namespace WebApplication007.DAL;
 
 public partial class Gender
 {

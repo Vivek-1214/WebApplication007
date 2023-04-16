@@ -1,4 +1,6 @@
-﻿@Model List<AppUser>
+﻿
+@using WebApplication007.DAL;
+@model List<AppUser>
 
 	<html>
 		<head>
@@ -64,8 +66,8 @@
 				</thead>
 				<tbody>
 
-				
-				@foreach (var AppUser in Model)
+
+			@foreach (var AppUser in Model)
 				{
 					<tr>
 						<td>@AppUser.Id</td>
