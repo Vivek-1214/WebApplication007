@@ -48,11 +48,14 @@ namespace WebApplication007.Controllers
 
 				db.AppUsers.Add(AppUser);
                 db.SaveChanges();
+				ViewBag.title = "if block";
 
-                return RedirectToAction("Index");
+				return RedirectToAction("Index");
             }
 
 			var Genders = db.Genders.ToList();
+			ViewBag.title = "else block";
+
 			ViewBag.GList = Genders;
 
 			return View(AppUsersVM);
